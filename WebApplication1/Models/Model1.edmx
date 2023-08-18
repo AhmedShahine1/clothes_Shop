@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="trainModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="Brand_id" />
+          </Key>
+          <Property Name="Brand_id" Type="int" Nullable="false" />
+          <Property Name="Brand_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Catagory">
+          <Key>
+            <PropertyRef Name="Catagory_id" />
+          </Key>
+          <Property Name="Catagory_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Catagory_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Catagory_image" Type="nvarchar(max)" />
+          <Property Name="Catagory_disc" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Colors">
+          <Key>
+            <PropertyRef Name="Color_id" />
+          </Key>
+          <Property Name="Color_id" Type="int" Nullable="false" />
+          <Property Name="Color_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Product_id" />
+          </Key>
+          <Property Name="Product_id" Type="int" Nullable="false" />
+          <Property Name="Product_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Product_qty" Type="int" />
+          <Property Name="Product_price" Type="int" />
+          <Property Name="Product_desc" Type="nvarchar(max)" />
+          <Property Name="Product_image" Type="nvarchar(max)" />
+          <Property Name="Product_sizeid" Type="int" />
+          <Property Name="Product_Catagoryid" Type="int" />
+          <Property Name="Product_Colors" Type="int" />
+          <Property Name="Product_Brandid" Type="int" />
+        </EntityType>
+        <EntityType Name="Sizes">
+          <Key>
+            <PropertyRef Name="Size_Id" />
+          </Key>
+          <Property Name="Size_Id" Type="int" Nullable="false" />
+          <Property Name="Size_name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Product_Brand">
+          <End Role="Brand" Type="Self.Brand" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="Brand_id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Product_Brandid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Catagory">
+          <End Role="Catagory" Type="Self.Catagory" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Catagory">
+              <PropertyRef Name="Catagory_id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Product_Colors" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Colors">
+          <End Role="Colors" Type="Self.Colors" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colors">
+              <PropertyRef Name="Color_id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Product_Colors" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Sizes">
+          <End Role="Sizes" Type="Self.Sizes" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sizes">
+              <PropertyRef Name="Size_Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Product_sizeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="trainModelStoreContainer">
+          <EntitySet Name="Brand" EntityType="Self.Brand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Catagory" EntityType="Self.Catagory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Colors" EntityType="Self.Colors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sizes" EntityType="Self.Sizes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Product_Brand" Association="Self.FK_Product_Brand">
+            <End Role="Brand" EntitySet="Brand" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Catagory" Association="Self.FK_Product_Catagory">
+            <End Role="Catagory" EntitySet="Catagory" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Colors" Association="Self.FK_Product_Colors">
+            <End Role="Colors" EntitySet="Colors" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Sizes" Association="Self.FK_Product_Sizes">
+            <End Role="Sizes" EntitySet="Sizes" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="trainModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Brand">
+          <Key>
+            <PropertyRef Name="Brand_id" />
+          </Key>
+          <Property Name="Brand_id" Type="Int32" Nullable="false" />
+          <Property Name="Brand_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Product_Brand" FromRole="Brand" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Catagory">
+          <Key>
+            <PropertyRef Name="Catagory_id" />
+          </Key>
+          <Property Name="Catagory_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Catagory_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Catagory_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Catagory_disc" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Product_Catagory" FromRole="Catagory" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Color">
+          <Key>
+            <PropertyRef Name="Color_id" />
+          </Key>
+          <Property Name="Color_id" Type="Int32" Nullable="false" />
+          <Property Name="Color_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Product_Colors" FromRole="Colors" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Product_id" />
+          </Key>
+          <Property Name="Product_id" Type="Int32" Nullable="false" />
+          <Property Name="Product_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Product_qty" Type="Int32" />
+          <Property Name="Product_price" Type="Int32" />
+          <Property Name="Product_desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Product_image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Product_sizeid" Type="Int32" />
+          <Property Name="Product_Catagoryid" Type="Int32" />
+          <Property Name="Product_Colors" Type="Int32" />
+          <Property Name="Product_Brandid" Type="Int32" />
+          <NavigationProperty Name="Brand" Relationship="Self.FK_Product_Brand" FromRole="Product" ToRole="Brand" />
+          <NavigationProperty Name="Catagory" Relationship="Self.FK_Product_Catagory" FromRole="Product" ToRole="Catagory" />
+          <NavigationProperty Name="Color" Relationship="Self.FK_Product_Colors" FromRole="Product" ToRole="Colors" />
+          <NavigationProperty Name="Size" Relationship="Self.FK_Product_Sizes" FromRole="Product" ToRole="Sizes" />
+        </EntityType>
+        <EntityType Name="Size">
+          <Key>
+            <PropertyRef Name="Size_Id" />
+          </Key>
+          <Property Name="Size_Id" Type="Int32" Nullable="false" />
+          <Property Name="Size_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Product_Sizes" FromRole="Sizes" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_Product_Brand">
+          <End Role="Brand" Type="Self.Brand" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Brand">
+              <PropertyRef Name="Brand_id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Product_Brandid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Catagory">
+          <End Role="Catagory" Type="Self.Catagory" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Catagory">
+              <PropertyRef Name="Catagory_id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Product_Colors" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Colors">
+          <End Role="Colors" Type="Self.Color" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colors">
+              <PropertyRef Name="Color_id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Product_Colors" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Product_Sizes">
+          <End Role="Sizes" Type="Self.Size" Multiplicity="0..1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sizes">
+              <PropertyRef Name="Size_Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="Product_sizeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="trainEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Brands" EntityType="Self.Brand" />
+          <EntitySet Name="Catagories" EntityType="Self.Catagory" />
+          <EntitySet Name="Colors" EntityType="Self.Color" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Sizes" EntityType="Self.Size" />
+          <AssociationSet Name="FK_Product_Brand" Association="Self.FK_Product_Brand">
+            <End Role="Brand" EntitySet="Brands" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Catagory" Association="Self.FK_Product_Catagory">
+            <End Role="Catagory" EntitySet="Catagories" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Colors" Association="Self.FK_Product_Colors">
+            <End Role="Colors" EntitySet="Colors" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Sizes" Association="Self.FK_Product_Sizes">
+            <End Role="Sizes" EntitySet="Sizes" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="trainModelStoreContainer" CdmEntityContainer="trainEntities1">
+          <EntitySetMapping Name="Brands">
+            <EntityTypeMapping TypeName="trainModel.Brand">
+              <MappingFragment StoreEntitySet="Brand">
+                <ScalarProperty Name="Brand_id" ColumnName="Brand_id" />
+                <ScalarProperty Name="Brand_name" ColumnName="Brand_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Catagories">
+            <EntityTypeMapping TypeName="trainModel.Catagory">
+              <MappingFragment StoreEntitySet="Catagory">
+                <ScalarProperty Name="Catagory_id" ColumnName="Catagory_id" />
+                <ScalarProperty Name="Catagory_name" ColumnName="Catagory_name" />
+                <ScalarProperty Name="Catagory_image" ColumnName="Catagory_image" />
+                <ScalarProperty Name="Catagory_disc" ColumnName="Catagory_disc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Colors">
+            <EntityTypeMapping TypeName="trainModel.Color">
+              <MappingFragment StoreEntitySet="Colors">
+                <ScalarProperty Name="Color_id" ColumnName="Color_id" />
+                <ScalarProperty Name="Color_Name" ColumnName="Color_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="trainModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Product_id" ColumnName="Product_id" />
+                <ScalarProperty Name="Product_name" ColumnName="Product_name" />
+                <ScalarProperty Name="Product_qty" ColumnName="Product_qty" />
+                <ScalarProperty Name="Product_price" ColumnName="Product_price" />
+                <ScalarProperty Name="Product_desc" ColumnName="Product_desc" />
+                <ScalarProperty Name="Product_image" ColumnName="Product_image" />
+                <ScalarProperty Name="Product_sizeid" ColumnName="Product_sizeid" />
+                <ScalarProperty Name="Product_Catagoryid" ColumnName="Product_Catagoryid" />
+                <ScalarProperty Name="Product_Colors" ColumnName="Product_Colors" />
+                <ScalarProperty Name="Product_Brandid" ColumnName="Product_Brandid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sizes">
+            <EntityTypeMapping TypeName="trainModel.Size">
+              <MappingFragment StoreEntitySet="Sizes">
+                <ScalarProperty Name="Size_Id" ColumnName="Size_Id" />
+                <ScalarProperty Name="Size_name" ColumnName="Size_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

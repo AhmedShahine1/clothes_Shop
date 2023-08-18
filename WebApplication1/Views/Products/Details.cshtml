@@ -1,0 +1,99 @@
+﻿@model WebApplication1.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_qty)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_qty)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_desc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_desc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_image)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_image)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Product_Catagoryid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Product_Catagoryid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Brand.Brand_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Brand.Brand_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Catagory.Catagory_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Catagory.Catagory_name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Color.Color_Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Color.Color_Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Size.Size_name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Size.Size_name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Product_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
